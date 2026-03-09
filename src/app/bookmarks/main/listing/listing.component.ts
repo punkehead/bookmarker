@@ -6,7 +6,7 @@ import { HeaderComponent } from '../../header/header.component';
   standalone: true,
   imports: [HeaderComponent],
   templateUrl: './listing.component.html',
-  styleUrl: './listing.component.css'
+  styleUrl: './listing.component.scss'
 })
 export class ListingComponent {
 
