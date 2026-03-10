@@ -1,2 +1,52 @@
 <app-header></app-header>
-<p>listing works!</p>
+<mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
+
+<div class="container" *ngIf="groupedBookmarks$ | async as groups">
+  <div class="header">
+    <app-bookmark-filter class="search-bar"></app-bookmark-filter>
+    <button mat-fab color="primary" routerLink="/new" aria-label="Add Bookmark">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="!groups.today.length && !groups.yesterday.length && !groups.older.length && !(loading$ | async)" class="empty-state">
+    <mat-icon class="large-icon">bookmark_border</mat-icon>
+    <h3>No bookmarks found</h3>
+    <p>Get started by adding a new bookmark.</p>
+  </div>
+
+  <div *ngFor="let section of [
+    { title: 'Today', items: groups.today },
+    { title: 'Yesterday', items: groups.yesterday },
+    { title: 'Older', items: groups.older }
+  ]">
+    <div *ngIf="section.items.length > 0" class="group-section">
+      <h3 class="section-title">{{ section.title }}</h3>
+      <mat-card class="bookmark-card-list">
+        <mat-list>
+          <ng-container *ngFor="let b of section.items; last as isLast">
+            <mat-list-item>
+              <img matListItemAvatar [src]="getFavicon(b.url)" [alt]="b.name">
+              
+              <span matListItemTitle class="item-header">
+                <a [href]="b.url" target="_blank" class="bookmark-link">{{ b.name }}</a>
+                <span class="spacer"></span>
+                <span class="group-badge">{{ b.group }}</span>
+              </span>
+              <span matListItemLine class="item-url">{{ b.url }}</span>
+              
+              <a mat-icon-button [routerLink]="['/edit', b.id]" color="primary">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a mat-icon-button [href]="b.url" target="_blank" color="accent">
+                <mat-icon>open_in_new</mat-icon>
+              </a>
+            </mat-list-item>
+            <mat-divider *ngIf="!isLast"></mat-divider>
+          </ng-container>
+        </mat-list>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

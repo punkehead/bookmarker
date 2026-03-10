@@ -13,3 +13,4 @@ export const updateBookmark = createAction('Update Bookmark', props<{ bookmark: 
 export const updateBookmarkSuccess = createAction('Update Bookmark Success', props<{ bookmark: Bookmark }>());
 export const updateBookmarkFail = createAction('Update Bookmark Fail', props<{ error: any }>());
 
+export const setFilter = createAction('[Bookmark List] Set Filter', props<{ filter: string }>());
