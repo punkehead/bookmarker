@@ -1,16 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { Bookmark } from '../models/bookmark.model';
 import * as BookmarkActions from './bookmark.actions';
+import { BookmarkState } from '../models/bookmark.state.model';
 
-export interface BookmarkState {
-  bookmarks: Bookmark[];
-  filter: string;
-  loading: boolean;
-  error: string | null; // More specific type than 'any'
-}
-
-// Initial state for the bookmark feature
-// We start with an empty list and no filter
+// Initial state for the bookmarks store
 export const DEFAULT_STATE: BookmarkState = {
   bookmarks: [],
   filter: '',
@@ -20,8 +12,8 @@ export const DEFAULT_STATE: BookmarkState = {
 
 export const bookmarkReducer = createReducer(
   DEFAULT_STATE,
-  
-  // Loading flow
+
+  // Load bookmarks state reducers
   on(BookmarkActions.loadBookmarks, state => ({ ...state, loading: true, error: null })),
   on(BookmarkActions.loadBookmarksSuccess, (state, { bookmarks }) => ({ 
     ...state, 
@@ -34,7 +26,7 @@ export const bookmarkReducer = createReducer(
     error: typeof error === 'string' ? error : 'An unexpected error occurred'
   })),
   
-  // Create flow
+  // Add bookmark state reducers
   on(BookmarkActions.addBookmark, state => ({ ...state, loading: true })),
   on(BookmarkActions.addBookmarkSuccess, (state, { bookmark }) => ({ 
     ...state, 
@@ -43,7 +35,7 @@ export const bookmarkReducer = createReducer(
   })),
   on(BookmarkActions.addBookmarkFail, (state, { error }) => ({ ...state, loading: false, error })),
   
-  // Update flow
+  // Update bookmark state reducers
   on(BookmarkActions.updateBookmark, state => ({ ...state, loading: true })),
   on(BookmarkActions.updateBookmarkSuccess, (state, { bookmark }) => ({
     ...state,
@@ -53,6 +45,6 @@ export const bookmarkReducer = createReducer(
   })),
   on(BookmarkActions.updateBookmarkFail, (state, { error }) => ({ ...state, loading: false, error })),
   
-  // Filter
+  // Filter reducer
   on(BookmarkActions.setFilter, (state, { filter }) => ({ ...state, filter }))
 );
