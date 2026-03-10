@@ -1,16 +1,35 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 64px - 40px); 
-  padding: 20px;
+.main-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 24px auto;
+  @media (min-width: 600px) {
+    padding: 32px;
+    margin: 40px auto;
+  }
 }
 
-mat-card {
-  max-width: 500px;
-  width: 100%;
-  padding: 32px;
-  border-radius: 12px;
+.group-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  margin: 0 0 12px 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #757575;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.create-card {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.bookmark-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .full-width {
@@ -20,6 +39,25 @@ mat-card {
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 16px;
+
+  .save-btn {
+    background-color: #03a9f4; 
+    color: white;
+    font-weight: 500;
+    padding: 0 24px;
+    height: 40px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #03a9f4; 
+    }
+  }
+}
+
+mat-form-field {
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: table; 
+  }
 }

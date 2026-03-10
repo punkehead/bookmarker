@@ -1,33 +1,31 @@
 <app-header></app-header>
-<div class="container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>{{ isEditMode ? 'Edit' : 'Add New' }} Bookmark</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="bookmarkForm" (ngSubmit)="onSubmit()">
-        <p>
+<div class="main-container">
+  <div class="group-section">
+    <h3 class="section-title">{{ isEditMode ? 'Edit' : 'Add New' }} Bookmark</h3>
+    <mat-card class="create-card">
+      <mat-card-content>
+        <form [formGroup]="bookmarkForm" (ngSubmit)="onSubmit()" class="bookmark-form">
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" placeholder="e.g. Angular Docs">
-            <mat-error *ngIf="bookmarkForm.get('name')?.hasError('required')">Name is required</mat-error>
+            <mat-error *ngIf="submitted && bookmarkForm.get('name')?.hasError('required')">Name is required</mat-error>
           </mat-form-field>
-        </p>
-        
-        <p>
+          
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>URL</mat-label>
             <input matInput formControlName="url" type="url" placeholder="https://...">
-            <mat-error *ngIf="bookmarkForm.get('url')?.hasError('required')">URL is required</mat-error>
-            <mat-error *ngIf="bookmarkForm.get('url')?.hasError('pattern')">URL Must start with http:// or https://</mat-error>
+            <mat-error *ngIf="submitted && bookmarkForm.get('url')?.hasError('required')">URL is required</mat-error>
+            <mat-error *ngIf="submitted && bookmarkForm.get('url')?.hasError('pattern')">URL Must start with http:// or https://</mat-error>
           </mat-form-field>
-        </p>
 
-        <div class="actions">
-          <a mat-button routerLink="/">Cancel</a>
-          <button mat-raised-button color="primary" type="submit" [disabled]="bookmarkForm.invalid">Save Bookmark</button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>
+          <div class="actions">
+            <a mat-button routerLink="/">Cancel</a>
+            <button mat-button class="save-btn" type="submit">
+              {{ isEditMode ? 'Update' : 'Create' }} Bookmark
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

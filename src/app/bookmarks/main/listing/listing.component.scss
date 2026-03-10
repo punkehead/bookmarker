@@ -1,22 +1,18 @@
-.container {
-  padding: 24px;
+.main-container {
+  padding: 16px;
   max-width: 800px;
-  margin: 0 auto;
-}
+  margin: 24px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  gap: 16px;
-
-  app-bookmark-filter {
-    flex-grow: 1;
+  @media (min-width: 600px) {
+    padding: 32px;
+    margin: 40px auto;
   }
 }
 
-.empty-state {
+.empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,6 +97,10 @@ mat-list-item {
     height: auto !important;
     padding-top: 12px;
     padding-bottom: 12px;
+
+    mat-icon {
+        color: #757575;
+    }
 }
 
 img[matListItemAvatar] {

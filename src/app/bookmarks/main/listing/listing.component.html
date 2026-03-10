@@ -1,44 +1,46 @@
 <app-header></app-header>
 <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
 
-<ng-container *ngIf="groupedBookmarks$ | async as groups">
-  <div *ngIf="!groups.today.length && !groups.yesterday.length && !groups.older.length && !(loading$ | async)" class="empty-state">
-    <mat-icon class="large-icon">bookmark_border</mat-icon>
-    <h3>No bookmarks found</h3>
-    <p>Get started by adding a new bookmark.</p>
-  </div>
-
-  <div *ngFor="let section of [
-    { title: 'Today', items: groups.today },
-    { title: 'Yesterday', items: groups.yesterday },
-    { title: 'Older', items: groups.older }
-  ]">
-    <div *ngIf="section.items.length > 0" class="group-section">
-      <h3 class="section-title">{{ section.title }}</h3>
-      <mat-card class="bookmark-card-list">
-        <mat-list>
-          <ng-container *ngFor="let bookmark of section.items; last as isLast">
-            <mat-list-item>
-              <span matListItemAvatar class="favicon-container">
-                <img [src]="'https://www.google.com/s2/favicons?domain=' + bookmark.url + '&sz=32'" [alt]="bookmark.name">
-              </span>
-              
-              <span matListItemTitle class="item-header">
-                <a [href]="bookmark.url" target="_blank" class="bookmark-link">{{ bookmark.name }}</a>
-              </span>
-              <span matListItemLine class="item-url">{{ bookmark.url }}</span>
-              
-              <div matListItemMeta>
-                <a mat-icon-button [routerLink]="['/edit', bookmark.id]" color="primary">
-                  <mat-icon>edit</mat-icon>
-                </a>
-              </div>
-            </mat-list-item>
-            <mat-divider *ngIf="!isLast"></mat-divider>
-          </ng-container>
-        </mat-list>
-      </mat-card>
+<div class="main-container">
+  <ng-container *ngIf="groupedBookmarks$ | async as groups">
+    <div *ngIf="!groups.today.length && !groups.yesterday.length && !groups.older.length && !(loading$ | async)" class="empty">
+      <mat-icon class="large-icon">bookmark_border</mat-icon>
+      <h3>No bookmarks found</h3>
+      <p>Get started by adding a new bookmark.</p>
     </div>
-  </div>
-</ng-container>
+
+    <div *ngFor="let section of [
+      { title: 'Today', items: groups.today },
+      { title: 'Yesterday', items: groups.yesterday },
+      { title: 'Older', items: groups.older }
+    ]">
+      <div *ngIf="section.items.length > 0" class="group-section">
+        <h3 class="section-title">{{ section.title }}</h3>
+        <mat-card class="bookmark-card-list">
+          <mat-list>
+            <ng-container *ngFor="let bookmark of section.items; last as isLast">
+              <mat-list-item>
+                <div matListItemAvatar class="favicon-container">
+                  <img [src]="'https://www.google.com/s2/favicons?domain=' + bookmark.url + '&sz=32'" [alt]="bookmark.name">
+                </div>
+                
+                <span matListItemTitle class="item-header">
+                  <a [href]="bookmark.url" target="_blank" class="bookmark-link">{{ bookmark.name }}</a>
+                </span>
+                <span matListItemLine class="item-url">{{ bookmark.url }}</span>
+                
+                <div matListItemMeta>
+                  <a mat-icon-button [routerLink]="['/edit', bookmark.id]" color="primary">
+                    <mat-icon>edit</mat-icon>
+                  </a>
+                </div>
+              </mat-list-item>
+              <mat-divider *ngIf="!isLast"></mat-divider>
+            </ng-container>
+          </mat-list>
+        </mat-card>
+      </div>
+    </div>
+  </ng-container>
+</div>
 

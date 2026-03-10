@@ -28,6 +28,7 @@ export class CreateComponent implements OnInit {
 
   isEditMode = false;
   bookmarkId: string | null = null;
+  submitted = false;
 
   bookmarkForm = this.fb.group({
     name: ['', Validators.required],
@@ -50,6 +51,7 @@ export class CreateComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
     if (this.bookmarkForm.valid) {
       const formValue = this.bookmarkForm.value;
       const bookmark: Bookmark = {
