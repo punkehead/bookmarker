@@ -50,4 +50,47 @@ describe('Bookmarks Reducer', () => {
     const state = bookmarkReducer(DEFAULT_STATE, action);
     expect(state.filter).toBe(filter);
   });
+
+  it('should set loading to true when adding a bookmark', () => {
+    const action = BookmarkActions.addBookmark({ bookmark: testBookmark });
+    const state = bookmarkReducer(DEFAULT_STATE, action);
+    expect(state.loading).toBe(true);
+  });
+
+  it('should set loading to false and update error when adding a bookmark fails', () => {
+    const error = 'Failed to add';
+    const action = BookmarkActions.addBookmarkFail({ error });
+    const state = bookmarkReducer(DEFAULT_STATE, action);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe(error);
+  });
+
+  it('should set loading to true when updating a bookmark', () => {
+    const action = BookmarkActions.updateBookmark({ bookmark: testBookmark });
+    const state = bookmarkReducer(DEFAULT_STATE, action);
+    expect(state.loading).toBe(true);
+  });
+
+  it('should update a bookmark in the store on success', () => {
+    const initialState = {
+      ...DEFAULT_STATE,
+      bookmarks: [
+        { id: '1', name: 'Old Name', url: 'http://old.com', date: '2026-03-01' }
+      ]
+    };
+    const updatedBookmark: Bookmark = { id: '1', name: 'New Name', url: 'http://new.com', date: '2026-03-10' };
+    const action = BookmarkActions.updateBookmarkSuccess({ bookmark: updatedBookmark });
+    const state = bookmarkReducer(initialState, action);
+    expect(state.loading).toBe(false);
+    expect(state.bookmarks[0].name).toBe('New Name');
+    expect(state.bookmarks.length).toBe(1);
+  });
+
+  it('should set loading to false and update error when updating a bookmark fails', () => {
+    const error = 'Failed to update';
+    const action = BookmarkActions.updateBookmarkFail({ error });
+    const state = bookmarkReducer(DEFAULT_STATE, action);
+    expect(state.loading).toBe(false);
+    expect(state.error).toBe(error);
+  });
 });
