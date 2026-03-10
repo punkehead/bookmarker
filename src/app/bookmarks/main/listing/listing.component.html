@@ -1,14 +1,7 @@
 <app-header></app-header>
 <mat-progress-bar mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
 
-<div class="container" *ngIf="groupedBookmarks$ | async as groups">
-  <div class="header">
-    <app-bookmark-filter class="search-bar"></app-bookmark-filter>
-    <button mat-fab color="primary" routerLink="/new" aria-label="Add Bookmark">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
-
+<ng-container *ngIf="groupedBookmarks$ | async as groups">
   <div *ngIf="!groups.today.length && !groups.yesterday.length && !groups.older.length && !(loading$ | async)" class="empty-state">
     <mat-icon class="large-icon">bookmark_border</mat-icon>
     <h3>No bookmarks found</h3>
@@ -26,21 +19,20 @@
         <mat-list>
           <ng-container *ngFor="let b of section.items; last as isLast">
             <mat-list-item>
-              <img matListItemAvatar [src]="getFavicon(b.url)" [alt]="b.name">
+              <span matListItemAvatar class="favicon-container">
+                <img [src]="'https://www.google.com/s2/favicons?domain=' + b.url" [alt]="b.name">
+              </span>
               
               <span matListItemTitle class="item-header">
                 <a [href]="b.url" target="_blank" class="bookmark-link">{{ b.name }}</a>
-                <span class="spacer"></span>
-                <span class="group-badge">{{ b.group }}</span>
               </span>
               <span matListItemLine class="item-url">{{ b.url }}</span>
               
-              <a mat-icon-button [routerLink]="['/edit', b.id]" color="primary">
-                <mat-icon>edit</mat-icon>
-              </a>
-              <a mat-icon-button [href]="b.url" target="_blank" color="accent">
-                <mat-icon>open_in_new</mat-icon>
-              </a>
+              <div matListItemMeta>
+                <a mat-icon-button [routerLink]="['/edit', b.id]" color="primary">
+                  <mat-icon>edit</mat-icon>
+                </a>
+              </div>
             </mat-list-item>
             <mat-divider *ngIf="!isLast"></mat-divider>
           </ng-container>
@@ -48,5 +40,5 @@
       </mat-card>
     </div>
   </div>
-</div>
+</ng-container>
 

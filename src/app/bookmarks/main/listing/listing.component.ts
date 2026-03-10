@@ -11,12 +11,11 @@ import { RouterModule } from '@angular/router';
 import { loadBookmarks } from '../../store/bookmark.actions';
 import { HeaderComponent } from '../../header/header.component';
 import { selectGroupedBookmarks, selectLoading } from '../../store/bookmark.selectors';
-import { BookmarkFilterComponent } from '../bookmark-filter/bookmark-filter.component';
 
 @Component({
   selector: 'app-listing',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, AsyncPipe, RouterModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressBarModule, MatChipsModule, BookmarkFilterComponent],
+  imports: [HeaderComponent, CommonModule, AsyncPipe, RouterModule, MatListModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressBarModule, MatChipsModule],
   templateUrl: './listing.component.html',
   styleUrl: './listing.component.scss'
 })

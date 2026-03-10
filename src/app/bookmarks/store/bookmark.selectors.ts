@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { BookmarkState } from './bookmark.reducer';
+import { BookmarkState } from '../models/bookmark.state.model';
 import { Bookmark } from '../models/bookmark.model';
 
 export const selectBookmarkState = createFeatureSelector<BookmarkState>('bookmarks');
@@ -11,7 +11,7 @@ export const selectAllBookmarks = createSelector(
 
 export const selectFilter = createSelector(
   selectBookmarkState,
-  (state: BookmarkState) => state.filter
+  (state: BookmarkState) => state.filter  
 );
 
 export const selectLoading = createSelector(
@@ -48,8 +48,8 @@ export const selectGroupedBookmarks = createSelector(
     const yesterdayList: Bookmark[] = [];
     const olderList: Bookmark[] = [];
 
-    bookmarks.forEach(bookmark => {
-      const bDate = new Date(bookmark.date);
+    bookmarks.forEach((bookmark: Bookmark) => {
+      const bDate = new Date(bookmark.date || new Date());
       if (isSameDate(bDate, today)) {
         todayList.push(bookmark);
       } else if (isSameDate(bDate, yesterday)) {
@@ -59,7 +59,7 @@ export const selectGroupedBookmarks = createSelector(
       }
     });
     
-    olderList.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    olderList.sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
 
     return { today: todayList, yesterday: yesterdayList, older: olderList };
   }

@@ -5,7 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 
-const API_URL = 'http://localhost:3000/bookmarks';
+const API_URL = '/api/bookmarks';
 
 @Injectable({
   providedIn: 'root'

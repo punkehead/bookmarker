@@ -1,3 +1,13 @@
 <mat-toolbar color="primary">
-  <span>Bookmarker</span>
+    <span>Bookmarker</span>
+
+    <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Filter bookmarks...</mat-label>
+        <input matInput [ngModel]="filter$ | async" (ngModelChange)="onFilterChange($event)" placeholder="Search by name, url, group">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-fab color="primary" routerLink="/add" aria-label="Add Bookmark">
+      <mat-icon>add</mat-icon>
+    </button>
 </mat-toolbar>

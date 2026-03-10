@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as BookmarkActions from './bookmark.actions';
-import { BookmarkState } from '../models/bookmark.state.model';
+import { BookmarkState } from './../models/bookmark.state.model';
 
 // Initial state for the bookmarks store
 export const DEFAULT_STATE: BookmarkState = {
