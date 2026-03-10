@@ -37,9 +37,15 @@ const isSameDate = (date1: Date, date2: Date) =>
   date1.getMonth() === date2.getMonth() &&
   date1.getDate() === date2.getDate();
 
+export interface BookmarkGroups {
+  today: Bookmark[];
+  yesterday: Bookmark[];
+  older: Bookmark[];
+}
+
 export const selectGroupedBookmarks = createSelector(
   selectFilteredBookmarks,
-  (bookmarks) => {
+  (bookmarks): BookmarkGroups => {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);

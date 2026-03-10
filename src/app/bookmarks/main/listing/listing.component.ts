@@ -10,7 +10,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule } from '@angular/router';
 import { loadBookmarks } from '../../store/bookmark.actions';
 import { HeaderComponent } from '../../header/header.component';
-import { selectGroupedBookmarks, selectLoading } from '../../store/bookmark.selectors';
+import { selectGroupedBookmarks, selectLoading, BookmarkGroups } from '../../store/bookmark.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listing',
@@ -21,15 +22,11 @@ import { selectGroupedBookmarks, selectLoading } from '../../store/bookmark.sele
 })
 export class ListingComponent {
   private store = inject(Store);
-  groupedBookmarks$ = this.store.select(selectGroupedBookmarks);
+  groupedBookmarks$: Observable<BookmarkGroups> = this.store.select(selectGroupedBookmarks);
   loading$ = this.store.select(selectLoading);
 
   ngOnInit() {
     this.store.dispatch(loadBookmarks());
-  }
-
-  getFavicon(url: string): string {
-    return `https://www.google.com/s2/favicons?domain=${url}&sz=32`;
   }
 }
 
