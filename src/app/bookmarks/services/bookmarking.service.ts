@@ -14,7 +14,7 @@ export class BookmarkingService {
   private http = inject(HttpClient);
 
 
-  fetchAll(): Observable<Bookmark[]> {
+  fetchAllBookmarks(): Observable<Bookmark[]> {
     return this.http.get<Bookmark[]>(API_URL).pipe(
       tap(res => console.debug(`Fetched ${res.length} bookmarks`)),
       catchError(err => {
@@ -25,7 +25,7 @@ export class BookmarkingService {
   }
 
 
-  create(bookmark: Bookmark): Observable<Bookmark> {
+  createBookmark(bookmark: Bookmark): Observable<Bookmark> {
     return this.http.post<Bookmark>(API_URL, bookmark).pipe(
       tap(() => console.log(`created new bookmark: ${bookmark.name}`)),
       catchError(err => {
@@ -35,7 +35,7 @@ export class BookmarkingService {
     );
   }
 
-  update(bookmark: Bookmark): Observable<Bookmark> {
+  updateBookmark(bookmark: Bookmark): Observable<Bookmark> {
     return this.http.put<Bookmark>(`${API_URL}/${bookmark.id}`, bookmark).pipe(
       tap(() => console.log(`updated bookmark: ${bookmark.name}`)),
       catchError(err => {
@@ -46,7 +46,7 @@ export class BookmarkingService {
   }
 
   // Not used yet
-  remove(id: string): Observable<void> {
+  removeBookmark(id: string): Observable<void> {
     return this.http.delete<void>(`${API_URL}/${id}`).pipe(
       tap(() => console.log(`deleted bookmark with id: ${id}`)),
       catchError(err => {
