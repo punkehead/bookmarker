@@ -33,9 +33,7 @@ export const selectFilteredBookmarks = createSelector(
 );
 
 const isSameDate = (date1: Date, date2: Date) => 
-  date1.getFullYear() === date2.getFullYear() &&
-  date1.getMonth() === date2.getMonth() &&
-  date1.getDate() === date2.getDate();
+  date1.toDateString() === date2.toDateString();
 
 export interface BookmarkGroups {
   today: Bookmark[];
@@ -47,27 +45,21 @@ export const selectGroupedBookmarks = createSelector(
   selectFilteredBookmarks,
   (bookmarks): BookmarkGroups => {
     const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
 
-    const todayList: Bookmark[] = [];
-    const yesterdayList: Bookmark[] = [];
-    const olderList: Bookmark[] = [];
+    const groups: BookmarkGroups = { today: [], yesterday: [], older: [] };
 
-    bookmarks.forEach((bookmark: Bookmark) => {
-      const bDate = new Date(bookmark.date || new Date());
-      if (isSameDate(bDate, today)) {
-        todayList.push(bookmark);
-      } else if (isSameDate(bDate, yesterday)) {
-        yesterdayList.push(bookmark);
-      } else {
-        olderList.push(bookmark);
-      }
+    bookmarks.forEach(bookmark => {
+      const bDate = new Date(bookmark.date || Date.now());
+      if (isSameDate(bDate, today)) groups.today.push(bookmark);
+      else if (isSameDate(bDate, yesterday)) groups.yesterday.push(bookmark);
+      else groups.older.push(bookmark);
     });
     
-    olderList.sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
+    groups.older.sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
 
-    return { today: todayList, yesterday: yesterdayList, older: olderList };
+    return groups;
   }
 );
 

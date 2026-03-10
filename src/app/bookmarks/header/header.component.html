@@ -3,8 +3,8 @@
 
     <div class="search-container">
         <mat-form-field appearance="outline" class="search-field">
-            <mat-label>Search bookmarks...</mat-label>
-            <input matInput [ngModel]="filter$ | async" (ngModelChange)="onFilterChange($event)" placeholder="Name or URL">
+            <mat-label>Filter bookmarks...</mat-label>
+            <input matInput [ngModel]="filter$ | async" (ngModelChange)="onFilterChange($event)" placeholder="Filter by name or URL">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
     </div>
