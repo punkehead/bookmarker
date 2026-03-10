@@ -8,11 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { setFilter } from '../store/bookmark.actions';
 import { selectFilter } from '../store/bookmark.selectors';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbarModule, AsyncPipe, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [MatToolbarModule, AsyncPipe, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

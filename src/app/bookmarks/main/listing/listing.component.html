@@ -17,19 +17,19 @@
       <h3 class="section-title">{{ section.title }}</h3>
       <mat-card class="bookmark-card-list">
         <mat-list>
-          <ng-container *ngFor="let b of section.items; last as isLast">
+          <ng-container *ngFor="let bookmark of section.items; last as isLast">
             <mat-list-item>
               <span matListItemAvatar class="favicon-container">
-                <img [src]="'https://www.google.com/s2/favicons?domain=' + b.url" [alt]="b.name">
+                <img [src]="'https://www.google.com/s2/favicons?domain=' + bookmark.url + '&sz=32'" [alt]="bookmark.name">
               </span>
               
               <span matListItemTitle class="item-header">
-                <a [href]="b.url" target="_blank" class="bookmark-link">{{ b.name }}</a>
+                <a [href]="bookmark.url" target="_blank" class="bookmark-link">{{ bookmark.name }}</a>
               </span>
-              <span matListItemLine class="item-url">{{ b.url }}</span>
+              <span matListItemLine class="item-url">{{ bookmark.url }}</span>
               
               <div matListItemMeta>
-                <a mat-icon-button [routerLink]="['/edit', b.id]" color="primary">
+                <a mat-icon-button [routerLink]="['/edit', bookmark.id]" color="primary">
                   <mat-icon>edit</mat-icon>
                 </a>
               </div>

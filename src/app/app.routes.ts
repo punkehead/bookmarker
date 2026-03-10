@@ -4,6 +4,7 @@ import { CreateComponent } from './bookmarks/main/create/create.component';
 
 export const routes: Routes = [
   { path: '', component: ListingComponent },
-  { path: 'new', component: CreateComponent },
+  { path: 'add', component: CreateComponent },
+  { path: 'edit/:id', component: CreateComponent },
   { path: '**', redirectTo: '' }
 ];

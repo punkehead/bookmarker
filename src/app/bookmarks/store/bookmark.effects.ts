@@ -33,6 +33,7 @@ export class BookmarkEffects {
       mergeMap(({ bookmark }) =>
         this.bookmarkingService.createBookmark(bookmark).pipe(
           map(newBookmark => BookmarkActions.addBookmarkSuccess({ bookmark: newBookmark })),
+          tap(() => this.router.navigate(['/'])),
           catchError(error => {
             console.error('Create failed', error);
             return of(BookmarkActions.addBookmarkFail({ error }));
@@ -48,6 +49,7 @@ export class BookmarkEffects {
       mergeMap(({ bookmark }) =>
         this.bookmarkingService.updateBookmark(bookmark).pipe(
           map(updated => BookmarkActions.updateBookmarkSuccess({ bookmark: updated })),
+          tap(() => this.router.navigate(['/'])),
           catchError(error => of(BookmarkActions.updateBookmarkFail({ error })))
         )
       )
